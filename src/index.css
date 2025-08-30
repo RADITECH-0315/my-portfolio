@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* simple design tokens via CSS variables */
+:root{
+  --background: 255 255 255;
+  --foreground: 17 24 39;
+  --border: 229 231 235;
+}
+.dark{
+  --background: 9 9 11;
+  --foreground: 241 245 249;
+  --border: 39 39 42;
+}
+
+body{ background: rgb(var(--background)); color: rgb(var(--foreground)); }
+.text-foreground{ color: rgb(var(--foreground)); }
+.bg-background{ background: rgb(var(--background)); }
+.border-border{ border-color: rgb(var(--border)); }
+
+*{ scroll-behavior:smooth; }
