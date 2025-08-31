@@ -1,64 +1,54 @@
-import React from "react";
-import { projects } from "./Portfolio"; // reuse the same data
+import React, { useEffect } from "react";
 
-export default function ProjectModal({ onClose }) {
+/**
+ * Accessible, safe modal shell.
+ * - Click on backdrop closes
+ * - ESC closes
+ * - Locks body scroll while open
+ */
+export default function Modal({ open, onClose, title, children }) {
+  // Close on ESC + lock body scroll
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose && onClose();
+    };
+    document.addEventListener("keydown", onKey);
+
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center">
-      <div className="relative max-h-[90vh] w-[90vw] max-w-5xl overflow-y-auto rounded-2xl bg-white p-6 shadow-lg">
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 text-gray-600 hover:text-black"
-        >
-          Close
-        </button>
-
-        <h2 className="mb-6 text-2xl font-bold">Project Previews</h2>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((p) => {
-            const isLive = p.live && p.live !== "#";
-            return (
-              <div
-                key={p.title}
-                onClick={() => {
-                  const target = isLive ? p.live : p.repo;
-                  if (target) window.open(target, "_blank", "noopener,noreferrer");
-                }}
-                className={`cursor-pointer overflow-hidden rounded-2xl border bg-white shadow-sm transition hover:shadow-md`}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    const target = isLive ? p.live : p.repo;
-                    if (target) window.open(target, "_blank", "noopener,noreferrer");
-                  }
-                }}
-                aria-label={`Open ${p.title}`}
-              >
-                <img
-                  src={p.img}
-                  alt={p.title}
-                  className="h-40 w-full object-cover"
-                  loading="lazy"
-                />
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold">{p.title}</h3>
-                  <p className="mt-2 text-sm text-gray-600">{p.desc}</p>
-                  <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                    {p.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full border bg-gray-50 px-2.5 py-1"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+    <div
+      className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/50 p-4"
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose} // backdrop click closes
+    >
+      <div
+        className="relative max-h-[90vh] w-[92vw] max-w-5xl overflow-y-auto rounded-2xl bg-white shadow-xl"
+        onClick={(e) => e.stopPropagation()} // prevent backdrop close when clicking inside
+      >
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-white/90 px-5 py-4 backdrop-blur">
+          <h3 className="text-xl font-semibold">{title}</h3>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="rounded-md px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Close
+          </button>
         </div>
+
+        <div className="p-5">{children}</div>
       </div>
     </div>
   );
