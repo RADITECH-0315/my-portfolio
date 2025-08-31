@@ -10,15 +10,16 @@ export const projects = [
     live: "https://business-landing-pro.vercel.app/", // live link
     repo: "https://github.com/RADITECH-0315/business-landing-pro",
   },
-  {
-    slug: "admin-dashboard",
-    title: "Admin Dashboard (Demo)",
-    desc: "Analytics dashboard with login, charts, and CRUD features. Built as a demo project to show internal tools.",
-    img: "/projects/admin-dashboard-thumb.png",
-    tags: ["React", "Node", "Postgres"],
-    live: "#", // replace when deployed
-    repo: "",  // add later
-  },
+ {
+  slug: "admin-dashboard",
+  title: "Retail Admin Dashboard (Demo)",
+  desc: "Interactive analytics dashboard with login, charts, and CRUD features. Built as a demo project to show internal tools.",
+  img: "/projects/dashboard-thumb.png",  // ✅ matches your file name
+  tags: ["React", "Node", "Postgres"],
+  live: "https://retail-dashboard-mu.vercel.app/", // ✅ deployed Vercel link
+  repo: "https://github.com/RADITECH-0315/E-commernce-Dashboard.git" // ✅ GitHub repo
+},
+
   {
     slug: "ai-resume-matcher",
     title: "AI Resume Matcher (Prototype)",
