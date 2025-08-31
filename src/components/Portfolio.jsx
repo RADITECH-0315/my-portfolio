@@ -1,32 +1,42 @@
 import React from "react";
 
 export const projects = [
-    {
-    slug: "business-landing-page",
+  {
+    slug: "business-landing",
     title: "Business Landing Page (Demo)",
     desc: "A clean, responsive landing page kit for small businesses. Includes Hero, Services, About, Testimonials, Pricing, and Contact sections with SEO optimization.",
     img: "/projects/biz-landing-thumb.png",
-    video: "/videos/biz-landing.mp4",
     tags: ["React", "Tailwind", "Formspree", "SEO"],
-    live: "https://your-vercel-demo-link.vercel.app",   // replace with deployed link
-    repo: "https://github.com/RADITECH-0315/business-landing-demo", // replace with repo link
-    caseStudy: "/projects/business-landing",
+    live: "https://business-landing-pro.vercel.app/", // live link
+    repo: "https://github.com/RADITECH-0315/business-landing-pro",
   },
   {
+    slug: "admin-dashboard",
     title: "Admin Dashboard (Demo)",
     desc: "Analytics dashboard with login, charts, and CRUD features. Built as a demo project to show internal tools.",
-    img: "/demo-dashboard.png",    // put a screenshot at public/demo-dashboard.png
+    img: "/projects/admin-dashboard-thumb.png",
     tags: ["React", "Node", "Postgres"],
+    live: "#", // replace when deployed
+    repo: "",  // add later
   },
   {
+    slug: "ai-resume-matcher",
     title: "AI Resume Matcher (Prototype)",
     desc: "Upload a resume and job description → get skill match score and a tailored cover letter. Prototype demo.",
-    img: "/demo-ai.png",           // put a screenshot at public/demo-ai.png
+    img: "/demo-ai.png", // put a screenshot at public/demo-ai.png
     tags: ["Python", "NLP", "Embeddings"],
+    live: "#",
+    repo: "",
   },
 ];
 
 export default function PortfolioSection() {
+  const openProject = (p) => {
+    if (p?.live && p.live !== "#") {
+      window.open(p.live, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <section className="py-20">
       <div className="mx-auto w-[90vw] max-w-[1400px] px-4 sm:px-6">
@@ -36,31 +46,90 @@ export default function PortfolioSection() {
         </p>
 
         <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {projects.map((p) => (
-            <div key={p.title} className="overflow-hidden rounded-2xl border bg-white shadow-sm">
-              <img src={p.img} alt={p.title} className="h-48 w-full object-cover" />
-              <div className="p-6">
-                <h3 className="text-lg font-semibold">{p.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{p.desc}</p>
-                <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                  {p.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-border/60 bg-gray-50 px-2.5 py-1"
-                    >
-                      {t}
-                    </span>
-                  ))}
+          {projects.map((p) => {
+            const isLive = p.live && p.live !== "#";
+            return (
+              <div
+                key={p.title}
+                className={`group overflow-hidden rounded-2xl border bg-white shadow-sm transition ${
+                  isLive ? "cursor-pointer hover:shadow-md" : "opacity-95"
+                }`}
+                onClick={() => openProject(p)}
+                role={isLive ? "button" : undefined}
+                tabIndex={isLive ? 0 : -1}
+                onKeyDown={(e) => {
+                  if (isLive && (e.key === "Enter" || e.key === " ")) openProject(p);
+                }}
+                aria-label={isLive ? `Open ${p.title} live demo` : p.title}
+              >
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  loading="lazy"
+                  className="h-48 w-full object-cover"
+                />
+
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold">{p.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{p.desc}</p>
+
+                  <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                    {p.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-border/60 bg-gray-50 px-2.5 py-1"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div
+                    className="pointer-events-auto mt-4 flex flex-wrap gap-3 text-sm font-semibold"
+                    onClick={(e) => e.stopPropagation()} // prevent card click when pressing buttons
+                  >
+                    {isLive ? (
+                      <a
+                        href={p.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-xl bg-blue-600 px-3 py-1.5 text-white hover:bg-blue-700"
+                        aria-label={`Open live demo of ${p.title}`}
+                      >
+                        Live Demo
+                      </a>
+                    ) : (
+                      <span
+                        className="rounded-xl bg-gray-200 px-3 py-1.5 text-gray-600"
+                        title="Live link coming soon"
+                      >
+                        Live soon
+                      </span>
+                    )}
+
+                    {p.repo ? (
+                      <a
+                        href={p.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-xl border px-3 py-1.5 hover:bg-gray-50"
+                        aria-label={`Open GitHub repository of ${p.title}`}
+                      >
+                        GitHub
+                      </a>
+                    ) : (
+                      <span
+                        className="rounded-xl border px-3 py-1.5 text-gray-600"
+                        title="Repo coming soon"
+                      >
+                        Repo soon
+                      </span>
+                    )}
+                  </div>
                 </div>
-                {/* Optional CTA row
-                <div className="mt-4 flex gap-3 text-sm font-semibold">
-                  <a href="#" className="underline-offset-4 hover:underline">Live Demo</a>
-                  <a href="https://github.com/RADITECH-0315" target="_blank" className="underline-offset-4 hover:underline">GitHub</a>
-                </div>
-                */}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
