@@ -8,7 +8,7 @@ export const projects = [
     img: "/projects/biz-landing-thumb.png",
     tags: ["React", "Tailwind", "Formspree", "SEO"],
     live: "https://business-landing-pro.vercel.app/", // live link
-    repo: "https://github.com/RADITECH-0315/business-landing-pro",
+    repo: "https://github.com/RADITECH-0315/Business-landingpage.git",
   },
  {
   slug: "admin-dashboard",
