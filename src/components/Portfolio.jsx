@@ -8,7 +8,6 @@ export const projects = [
     img: "/projects/biz-landing-thumb.png",
     tags: ["React", "Tailwind", "Formspree", "SEO"],
     live: "https://business-landing-pro.vercel.app/", // live link
-    repo: "https://github.com/RADITECH-0315/Business-landingpage.git",
   },
  {
   slug: "admin-dashboard",
@@ -17,18 +16,26 @@ export const projects = [
   img: "/projects/dashboard-thumb.png",  // ✅ matches your file name
   tags: ["React", "Node", "Postgres"],
   live: "https://retail-dashboard-mu.vercel.app/", // ✅ deployed Vercel link
-  repo: "https://github.com/RADITECH-0315/E-commernce-Dashboard.git" // ✅ GitHub repo
 },
 
   {
-    slug: "ai-resume-matcher",
-    title: "AI Resume Matcher (Prototype)",
-    desc: "Upload a resume and job description → get skill match score and a tailored cover letter. Prototype demo.",
-    img: "/demo-ai.png", // put a screenshot at public/demo-ai.png
-    tags: ["Python", "NLP", "Embeddings"],
-    live: "#",
-    repo: "",
-  },
+  slug: "ai-resume-matcher",
+  title: "AI Resume Matcher (Prototype)",
+  desc: "An AI-powered tool that analyzes resumes and job descriptions to calculate match scores, extract relevant skills, and generate tailored cover letters. Built for automated recruitment assistance.",
+  img: "/projects/airesume2.png", // 📌 Make sure the thumbnail image exists
+  tags: ["Python", "NLP", "Embeddings", "Flask", "OpenAI API"],
+  live: "https://frontend-eight-tau-86.vercel.app/", // 🔗 Replace with your deployed link
+},
+
+  {
+  slug: "rvm-rideway",
+  title: "RVM Rideway (MVP Prototype)",
+  desc: "A ride-sharing and micro-mobility platform with real-time ride booking, GPS tracking, driver-rider matching, and secure payments. Designed for scalable urban transportation solutions.",
+  img: "/projects/rvmrideway.png",  
+  tags: ["React", "Node", "MongoDB", "Express", "Map APIs"],
+  live: "https://rvm-rideway-mvp.vercel.app/",  // 
+}
+
 ];
 
 export default function PortfolioSection() {
@@ -108,24 +115,7 @@ export default function PortfolioSection() {
                       </span>
                     )}
 
-                    {p.repo ? (
-                      <a
-                        href={p.repo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-xl border px-3 py-1.5 hover:bg-gray-50"
-                        aria-label={`Open GitHub repository of ${p.title}`}
-                      >
-                        GitHub
-                      </a>
-                    ) : (
-                      <span
-                        className="rounded-xl border px-3 py-1.5 text-gray-600"
-                        title="Repo coming soon"
-                      >
-                        Repo soon
-                      </span>
-                    )}
+                   
                   </div>
                 </div>
               </div>
