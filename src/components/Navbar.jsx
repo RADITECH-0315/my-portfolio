@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { revealUp, premiumEasing, durations } from "../utils/motionConfig";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -18,8 +20,11 @@ export default function Navbar() {
   ];
 
   return (
-    <header
-      className={`sticky top-0 z-50 backdrop-blur ${
+    <motion.header
+      initial="hidden"
+      animate="visible"
+      variants={revealUp}
+      className={`sticky top-0 z-50 backdrop-blur transition-all duration-500 ${
         scrolled ? "border-b border-border/60 bg-white/70" : "bg-transparent"
       }`}
     >
@@ -30,22 +35,37 @@ export default function Navbar() {
         </a>
         <nav className="hidden items-center gap-1 sm:flex">
           {links.map((l) => (
-            <a
+            <motion.a
               key={l.href}
               href={l.href}
-              className="rounded-xl px-3 py-2 text-sm text-muted-foreground hover:text-foreground"
+              className="relative rounded-xl px-3 py-2 text-sm text-muted-foreground hover:text-foreground"
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: durations.hover, ease: premiumEasing }}
             >
               {l.label}
-            </a>
+              <motion.span
+                className="absolute bottom-1 left-3 right-3 h-0.5 bg-blue-600 origin-left"
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.4, ease: premiumEasing }}
+              />
+            </motion.a>
           ))}
-          <a
+          <motion.a
             href="/contact"
-            className="ml-2 rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:opacity-90"
+            className="ml-2 rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white"
+            whileHover={{
+              y: -2,
+              scale: 1.02,
+              boxShadow: "0 8px 25px -5px rgba(37, 99, 235, 0.4)",
+            }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: durations.hover, ease: premiumEasing }}
           >
             Get a Quote
-          </a>
+          </motion.a>
         </nav>
       </div>
-    </header>
+    </motion.header>
   );
 }

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Preloader from "./components/Preloader";
 import HomePage from "./pages/Home";
 import ServicesPage from "./pages/Services";
 import PortfolioPage from "./pages/Portfolio";
@@ -9,17 +10,24 @@ import "./index.css";
 import BusinessLandingCaseStudy from "./pages/Projects/BusinessLanding";
 
 export default function App() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/portfolio" element={<PortfolioPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/projects/business-landing" element={<BusinessLandingCaseStudy />}
-/>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <Preloader onComplete={() => setIsLoaded(true)} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route
+            path="/projects/business-landing"
+            element={<BusinessLandingCaseStudy />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }

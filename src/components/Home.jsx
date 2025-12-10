@@ -1,93 +1,93 @@
-import React, { useState } from "react";
-import Modal from "./Modal";
-import ProjectPreviews from "./ProjectPreviews";
+import React from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  revealUp,
+  staggerContainerSlow,
+  hoverLift,
+  tapCompress,
+  premiumEasing,
+  durations,
+} from "../utils/motionConfig";
 
 export default function HomeSection() {
-  const [open, setOpen] = useState(false);
-
   return (
-    <section className="overflow-hidden py-20">
-      <div className="mx-auto grid w-[90vw] max-w-[1400px] items-center gap-10 px-4 sm:px-6 md:grid-cols-2">
-        {/* Left: pitch + CTAs (unchanged) */}
-        <div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1 text-xs text-muted-foreground">
-            Web & AI Engineering for Modern Businesses
-          </span>
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background pt-20">
+      {/* Background decoration - Motion Parallax */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        transition={{ duration: 2, ease: "easeInOut" }}
+        className="absolute -top-20 -right-20 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[120px]"
+      />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+        className="absolute -bottom-20 -left-20 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px]"
+      />
 
-          <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Smart Websites & AI Solutions for{" "}
-            <span className="block bg-gradient-to-r from-blue-600 to-emerald-500 bg-clip-text text-transparent">
-              Startups and SMEs
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          variants={staggerContainerSlow}
+          initial="hidden"
+          animate="visible"
+          className="mx-auto max-w-4xl text-center"
+        >
+          {/* Badge - Fast Entry */}
+          <motion.div variants={revealUp} className="mb-8 flex justify-center">
+            <span className="rounded-full bg-blue-50 px-4 py-1.5 text-sm font-semibold text-blue-600 ring-1 ring-blue-600/20">
+              Available for New Projects
             </span>
-          </h1>
+          </motion.div>
 
-          <p className="mt-4 max-w-xl text-muted-foreground">
-            RADI TECH builds modern, high-performance websites and integrates practical AI tools to help
-            businesses grow faster.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href="/services"
-              className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
-            >
-              Explore Services
-            </a>
-            <a
-              href="/contact"
-              className="rounded-xl border border-border/60 px-4 py-2 text-sm font-semibold hover:bg-gray-50"
-            >
-              Request a Free Quote
-            </a>
-          </div>
-        </div>
-
-        {/* Right: feature/stat cards (unchanged layout) */}
-        <div className="rounded-3xl border border-border/60 bg-white p-6 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.25)]">
-          <div className="grid grid-cols-3 gap-4">
-            {/* This opens the modal with project previews */}
-            <button
-              onClick={() => setOpen(true)}
-              className="rounded-2xl border p-4 text-left transition hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              aria-label="View demo solutions"
-            >
-              <div className="text-2xl font-bold">10+</div>
-              <div className="text-sm text-muted-foreground">Demo Solutions</div>
-            </button>
-
-            <a
-              href="/contact"
-              className="rounded-2xl border p-4 transition hover:shadow-sm"
-              aria-label="Contact support"
-            >
-              <div className="text-2xl font-bold">24/7</div>
-              <div className="text-sm text-muted-foreground">Support</div>
-            </a>
-
-            <a
-              href="/services"
-              className="rounded-2xl border p-4 transition hover:shadow-sm"
-              aria-label="See SEO practices"
-            >
-              <div className="text-2xl font-bold">100</div>
-              <div className="text-sm text-muted-foreground">SEO Score Goal</div>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Modal: now uses the shared ProjectPreviews component */}
-      <Modal open={open} onClose={() => setOpen(false)} title="Project Previews">
-        <ProjectPreviews open={true} onClose={() => setOpen(false)} />
-        <div className="mt-6 flex justify-end">
-          <a
-            href="/portfolio"
-            className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+          {/* Headline - Slow & Heavy Entry */}
+          <motion.h1
+            variants={revealUp}
+            className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl md:text-7xl lg:text-8xl"
           >
-            View All Projects
-          </a>
-        </div>
-      </Modal>
+            Building{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-emerald-500 bg-clip-text text-transparent">
+              Digital Excellence
+            </span>
+          </motion.h1>
+
+          {/* Description - Medium Entry */}
+          <motion.p
+            variants={revealUp}
+            className="mx-auto mt-8 max-w-2xl text-lg text-gray-600 sm:text-xl md:text-2xl leading-relaxed"
+          >
+            We transform complex problems into elegant, high-performance web
+            solutions. Specializing in modern stacks and AI integration.
+          </motion.p>
+
+          {/* CTAs - Delayed & Tactile */}
+          <motion.div
+            variants={revealUp}
+            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
+          >
+            <motion.div whileHover={hoverLift} whileTap={tapCompress}>
+              <Link
+                to="/contact"
+                className="group flex items-center justify-center rounded-2xl bg-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-blue-500/25 transition-all"
+              >
+                Start a Project
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
+
+            <motion.div whileHover={hoverLift} whileTap={tapCompress}>
+              <Link
+                to="/portfolio"
+                className="flex items-center justify-center rounded-2xl bg-white px-8 py-4 text-lg font-semibold text-gray-900 shadow-sm ring-1 ring-gray-200 transition-all hover:bg-gray-50"
+              >
+                View Portfolio
+              </Link>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }
